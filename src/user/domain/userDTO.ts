@@ -22,3 +22,20 @@ export const registerUserDto = z.object({
 });
 
 export type RegisterUserDto = z.infer<typeof registerUserDto>;
+
+export const loginUserDTO = z.object({
+  email: z
+    .string({
+      required_error: "El campo correo es obligatorio",
+      invalid_type_error: "El campo correo debe ser un texto",
+    })
+    .email("Debe ser un email válido"),
+  password: z
+    .string({
+      required_error: "El campo contraseña es obligatorio",
+      invalid_type_error: "El campo contraseña debe ser un texto",
+    })
+    .min(6, "La contraseña debe tener al menos 6 caracteres"),
+});
+
+export type loginUserDto = z.infer<typeof loginUserDTO>;

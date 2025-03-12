@@ -20,4 +20,18 @@ export class UserRepository implements IUser {
 
         return new User(user.id, user.name, user.email, user.password);
     }
+
+    async find(email: string){
+        const user = await this.db.user.findUnique({
+            where: {
+                email
+            }
+        });
+
+        if(!user){
+            return null;
+        }
+
+        return new User(user.id, user.name, user.email, user.password);
+    }
 }
