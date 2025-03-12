@@ -5,7 +5,7 @@ import userRouter from "../user/userRouter";
 dotenv.config();
 
 export class Server {
-  private app: Application;
+  public app: Application;
 
   constructor() {
     this.app = express();
@@ -28,3 +28,5 @@ export class Server {
     });
   }
 }
+
+export const app = new Server().app;
