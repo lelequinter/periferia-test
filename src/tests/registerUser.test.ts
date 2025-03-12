@@ -1,59 +1,67 @@
-// import request from "supertest";
-// import { PrismaClient } from "@prisma/client";
-// import { app } from "../server/server";
+import request from "supertest";
+import { PrismaClient } from "@prisma/client";
+import { app } from "../server/server";
 
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 describe("POST /register", () => {
-  // beforeAll(async () => {
-  //   await prisma.user.deleteMany();
-  // });
-
-  // afterAll(async () => {
-  //   await prisma.$disconnect();
-  // });
-
-  it("should pass a basic test", () => {
-    expect(1 + 1).toBe(2);
+  beforeAll(async () => {
+    await prisma.user.deleteMany();
   });
 
-  // it("debería registrar un usuario correctamente", async () => {
-  //   const response = await request(app).post("/register").send({
-  //     email: "test@example.com",
-  //     password: "securePassword123",
-  //     name: "Test User",
-  //   });
+  afterAll(async () => {
+    await prisma.$disconnect();
+  });
 
-  //   expect(response.status).toBe(201);
-  //   expect(response.body).toHaveProperty("id");
-  //   expect(response.body.email).toBe("test@example.com");
-  // });
+  it("debería registrar un usuario correctamente", async () => {
+    const response = await request(app).post("/api/users/register").send({
+      email: "test@example.com",
+      password: "securePassword123",
+      name: "Test User",
+    });
 
-  // it("debería devolver error si el email ya existe", async () => {
-  //   await prisma.user.create({
-  //     data: {
-  //       email: "test@example.com",
-  //       password: "securePassword123",
-  //       name: "Test User",
-  //     },
-  //   });
+    expect(response.status).toBe(201);
+    expect(response.body.user).toHaveProperty("id");
+    expect(response.body.user.email).toBe("test@example.com");
+  });
 
-  //   const response = await request(app).post("/register").send({
-  //     email: "test@example.com",
-  //     password: "securePassword123",
-  //     name: "Test User",
-  //   });
+  it("debería devolver error si el email ya existe y validar que solo exista un usuario con ese email", async () => {
+    const response = await request(app).post("/api/users/register").send({
+      email: "test@example.com",
+      password: "securePassword123",
+      name: "Test User",
+    });
 
-  //   expect(response.status).toBe(400);
-  //   expect(response.body).toHaveProperty("message", "El usuario ya existe");
-  // });
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("message", "El correo ya se encunetra registrado.");
+    expect(response.body).toHaveProperty("field", ["email"]);
 
-  // it("debería devolver error si faltan campos obligatorios", async () => {
-  //   const response = await request(app).post("/register").send({
-  //     email: "invalid@example.com",
-  //   });
+    const userCount = await prisma.user.count({
+      where: { email: "test@example.com" }
+    });
+  
+    expect(userCount).toBe(1);
+  });
 
-  //   expect(response.status).toBe(400);
-  //   expect(response.body).toHaveProperty("message");
-  // });
+  it("debería devolver error si faltan campos obligatorios", async () => {
+    const response = await request(app).post("/api/users/register").send({
+      email: "invalid@example.com",
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).toHaveProperty("errors");
+  });
+
+  it("debería devolver error si un correo invalido se ingresa", async () => {
+    const response = await request(app).post("/api/users/register").send({
+      email: "invalidmail",
+      password: "securePassword123",
+      name: "Test User",
+    });
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty("message");
+    expect(response.body).toHaveProperty("errors", ["Debe ser un email válido"]);
+  }) 
 });

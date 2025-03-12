@@ -54,3 +54,10 @@ package-lock.json
 pnpm-lock.yaml
 yarn.lock
 **/*.bun
+
+# Ignorar reportes de cobertura de Jest
+coverage/
+coverage-final.json
+clover.xml
+lcov.info
+lcov-report/
