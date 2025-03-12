@@ -26,10 +26,16 @@ describe("POST /register", () => {
   });
 
   it("debería devolver error si el email ya existe y validar que solo exista un usuario con ese email", async () => {
-    const response = await request(app).post("/api/users/register").send({
-      email: "test@example.com",
+    await request(app).post("/api/users/register").send({
+      email: "test2@example.com",
       password: "securePassword123",
-      name: "Test User",
+      name: "Test User2",
+    });
+    
+    const response = await request(app).post("/api/users/register").send({
+      email: "test2@example.com",
+      password: "securePassword123",
+      name: "Test User2",
     });
 
     expect(response.status).toBe(400);
