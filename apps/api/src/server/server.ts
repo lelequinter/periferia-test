@@ -22,7 +22,7 @@ export class Server {
   }
 
   public start() {
-    const PORT = process.env.PORT || 3030;
+    const PORT = process.env.PORT || 3000;
     this.app.listen(PORT, () => {
       console.log(`Server running OK on Port: ${PORT}`);
     });
