@@ -13,7 +13,7 @@ describe("POST /register", () => {
     await prisma.$disconnect();
   });
 
-  it("debería registrar un usuario correctamente", async () => {
+  it("should register a user successfully", async () => {
     const response = await request(app).post("/api/users/register").send({
       email: "test@example.com",
       password: "securePassword123",
@@ -25,7 +25,7 @@ describe("POST /register", () => {
     expect(response.body.user.email).toBe("test@example.com");
   });
 
-  it("debería devolver error si el email ya existe y validar que solo exista un usuario con ese email", async () => {
+  it("should return an error if the email already exists and validate that only one user with that email exists", async () => {
     await request(app).post("/api/users/register").send({
       email: "test2@example.com",
       password: "securePassword123",
@@ -43,13 +43,13 @@ describe("POST /register", () => {
     expect(response.body).toHaveProperty("field", ["email"]);
 
     const userCount = await prisma.user.count({
-      where: { email: "test@example.com" }
+      where: { email: "test2@example.com" }
     });
   
     expect(userCount).toBe(1);
   });
 
-  it("debería devolver error si faltan campos obligatorios", async () => {
+  it("should return an error if required fields are missing", async () => {
     const response = await request(app).post("/api/users/register").send({
       email: "invalid@example.com",
     });
@@ -59,7 +59,7 @@ describe("POST /register", () => {
     expect(response.body).toHaveProperty("errors");
   });
 
-  it("debería devolver error si un correo invalido se ingresa", async () => {
+  it("should return an error if an invalid email is entered", async () => {
     const response = await request(app).post("/api/users/register").send({
       email: "invalidmail",
       password: "securePassword123",
