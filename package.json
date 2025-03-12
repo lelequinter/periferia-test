@@ -4,8 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --ext ts --exec ts-node src/index.ts",
-    "test": "jest --coverage --config src/tests/jest.config.cjs"
+    "dev": "prisma migrate deploy --schema=src/prisma/schema.prisma && ts-node src/prisma/seed.ts && nodemon --ext ts --exec ts-node src/index.ts",
+    "test": "jest --coverage --config src/tests/jest.config.cjs",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:seed": "ts-node src/prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "ts-node src/prisma/seed.ts"
   },
   "keywords": [],
   "author": "",

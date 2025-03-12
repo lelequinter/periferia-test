@@ -16,7 +16,7 @@
 /build
 
 # Prisma (archivos generados automáticamente)
-prisma/migrations/
+src/prisma/migrations/
 prisma/migration_lock.toml
 
 # Archivos de configuración de entorno (no subir credenciales)
