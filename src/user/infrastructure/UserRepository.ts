@@ -18,6 +18,6 @@ export class UserRepository implements IUser {
             }
         });
 
-        return new User(user.id, user.email, user.password);
+        return new User(user.id, user.name, user.email, user.password);
     }
 }
