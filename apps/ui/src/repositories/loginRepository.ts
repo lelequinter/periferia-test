@@ -1,15 +1,9 @@
+import { User } from "../models/User";
 import api from "../utils/httpClient";
 
 export interface LoginResponseI {
   message: string;
   user:    User;
-}
-
-export interface User {
-  id:    string;
-  name:  string;
-  email: string;
-  token: string;
 }
 
 export class LoginRepository {

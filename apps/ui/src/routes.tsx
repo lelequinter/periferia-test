@@ -7,6 +7,7 @@ import { Register } from "./pages/Register";
 import { Content } from "./pages/Content";
 import { Feed } from "./pages/Feed";
 import { Profile } from "./pages/Profile";
+import { authGuard } from "./guards/authGuard";
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
@@ -14,9 +15,9 @@ const rootRoute = createRootRoute({
 });
 
 const appRoute = createRoute({
-  // beforeLoad: async ({ location }) => {
-  //   await authGuard(location.pathname);
-  // },
+  beforeLoad: ({ location }) => {
+    authGuard(location.pathname);
+  },
   getParentRoute: () => rootRoute,
   id: "app",
   component: () => <App />,

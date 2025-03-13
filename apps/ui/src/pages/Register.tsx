@@ -1,15 +1,54 @@
 import { IdcardOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Link } from "@tanstack/react-router";
-import { Button, Form, Input } from "antd";
+import { Link, useNavigate } from "@tanstack/react-router";
+import { Button, Form, Input, notification } from "antd";
 import Title from "antd/es/typography/Title";
+import { RegisterRepository, RegisterResponseI } from "../repositories/registerRepository";
+import { extractErrorsFromResponse } from "../utils/extractErrorsFromResponse";
+import { NotificationErrorList } from "../components/NotificationErrorList";
+const registerRepo = new RegisterRepository();
 
 export const Register = () => {
+  const navigate = useNavigate();
+
+  const [api, contextHolder] = notification.useNotification();
+
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
+
+    registerUser(values.name, values.email, values.password);
   };
+
+  const openSuccesssNotification = (response: RegisterResponseI) => {
+
+    api['success']({
+      message: 'Cuenta creada!',
+      description: response.message ,
+    });
+  };
+
+  const openErrorNotification = (error: any) => {
+    const errorMessages = extractErrorsFromResponse(error);
+
+    api['error']({
+      message: 'Error al iniciar sesión',
+      description: <NotificationErrorList errorList={errorMessages} /> ,
+    });
+  };
+
+  const registerUser = async (name: string, email: string, password: string) => {
+      try {
+        const response = await registerRepo.register(name, email, password);
+        openSuccesssNotification(response);
+      } catch (e) {
+        const error = e as Error;
+        openErrorNotification(error)
+        throw error;
+      }
+    };
 
   return (
     <div className="flex justify-center items-center w-full h-screen" >
+      {contextHolder}
       <Form
         name="login"
         initialValues={{ name: '', email: '', password: '' }}

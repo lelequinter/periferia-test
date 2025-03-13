@@ -1,4 +1,5 @@
 import {
+  LogoutOutlined,
   PicLeftOutlined,
   ProfileOutlined,
 } from "@ant-design/icons";
@@ -6,10 +7,15 @@ import { Link, Outlet, useRouter } from "@tanstack/react-router";
 import { Breadcrumb, Layout, Menu, MenuProps, theme } from "antd";
 import { Footer, Header } from "antd/es/layout/layout";
 import { useState } from "react";
+import { useStore } from "../store";
 
 const activeProps = { style: { fontWeight: "800", color: "white" } };
 
 type MenuItem = Required<MenuProps>["items"][number];
+
+const logout = () => {
+  useStore.getState().removeUser();
+}
 
 const items: MenuItem[] = [
   {
@@ -38,6 +44,20 @@ const items: MenuItem[] = [
     key: "profile",
     icon: <ProfileOutlined />,
   },
+  {
+    label: (
+      <Link
+        to="/login"
+        className="[&.active]:font-bold"
+        activeProps={activeProps}
+        onClick={logout}
+      >
+        Cerrar Sesion
+      </Link>
+    ),
+    key: "logout",
+    icon: <LogoutOutlined />,
+  },
 ];
 
 export const Content = () => {
@@ -54,6 +74,15 @@ export const Content = () => {
     setCurrent(e.key);
   };
 
+  const breadcrumbItems = [
+    {
+      title: 'Home',
+    },
+    {
+      title: currentPath,
+    },
+  ]
+
   return (
     <Layout>
       <Header className="flex items-center justify-center">
@@ -69,10 +98,7 @@ export const Content = () => {
         />
       </Header>
       <Layout.Content style={{ padding: "0 48px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>{current}</Breadcrumb.Item>
-        </Breadcrumb>
+        <Breadcrumb style={{ margin: "16px 0" }} items={breadcrumbItems} />
         <div
           style={{
             background: colorBgContainer,

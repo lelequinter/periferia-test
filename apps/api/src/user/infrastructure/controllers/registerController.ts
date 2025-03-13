@@ -11,7 +11,7 @@ export class RegisterController {
 
       const user = await this.registerUser.run(name, email, password);
 
-      res.status(201).json({ message: "Usuario creado con éxito", user });
+      res.status(201).json({ message: "Usuario creado con éxito", user: { id: user.id, name: user.name, email: user.email } });
     } catch (e) {
       const error = e as Error;
 
