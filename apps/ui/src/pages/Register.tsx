@@ -1,6 +1,7 @@
 import { IdcardOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "@tanstack/react-router";
 import { Button, Form, Input } from "antd";
+import Title from "antd/es/typography/Title";
 
 export const Register = () => {
   const onFinish = (values: any) => {
@@ -15,6 +16,7 @@ export const Register = () => {
         className="w-full max-w-[400px]"
         onFinish={onFinish}
       >
+        <Title level={3}>Registarme</Title>
         <Form.Item
           name="name"
           rules={[{ required: true, message: "Por favor ingresa tu nombre de usuario!" }]}
@@ -40,7 +42,7 @@ export const Register = () => {
 
         <Form.Item>
           <Button block type="primary" htmlType="submit">
-            Register 
+            Registrarme
           </Button>
           or <Link to="/login"> Ya tengo cuenta!</Link>
         </Form.Item>
