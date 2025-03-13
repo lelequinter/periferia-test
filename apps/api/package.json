@@ -1,5 +1,5 @@
 {
-  "name": "periferia-test",
+  "name": "@periferia-test-monorepo/api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

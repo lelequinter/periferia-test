@@ -3,6 +3,7 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 import { Loading } from "./components/Loading";
 import { Login } from "./pages/Login";
 import App from "./App";
+import { Register } from "./pages/Register";
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
@@ -25,9 +26,16 @@ const loginRoute = createRoute({
   component: Login,
 });
 
+const registerRoute = createRoute({
+  getParentRoute: () => appRoute,
+  path: "/register",
+  component: Register,
+});
+
 const routeTree = rootRoute.addChildren([
   appRoute,
-  loginRoute
+  loginRoute,
+  registerRoute
 ]);
 
 //* Router principal de la aplicacion se provee en al RouterProvider en main.tsx

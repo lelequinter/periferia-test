@@ -1,7 +1,7 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 
-export const Login = () => {
+export const Register = () => {
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
@@ -14,6 +14,12 @@ export const Login = () => {
         className="w-full max-w-[400px]"
         onFinish={onFinish}
       >
+        <Form.Item
+          name="name"
+          rules={[{ required: true, message: "Por favor ingresa tu nombre de usuario!" }]}
+        >
+          <Input prefix={<UserOutlined />} placeholder="nombre de usuario" />
+        </Form.Item>
         <Form.Item
           name="email"
           rules={[{ required: true, message: "Por favor ingresa tu correo!" }]}
@@ -35,7 +41,7 @@ export const Login = () => {
           <Button block type="primary" htmlType="submit">
             Log in
           </Button>
-          or <a href="/register">Registrate ahora!</a>
+          or <a href="/login">Ya tengo cuenta!</a>
         </Form.Item>
       </Form>
     </div>
