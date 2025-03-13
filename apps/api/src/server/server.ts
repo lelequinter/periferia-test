@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import cors from "cors"; 
 import dotenv from "dotenv";
 import userRouter from "../user/userRouter";
 
@@ -15,6 +16,12 @@ export class Server {
 
   private config() {
     this.app.use(express.json());
+
+    this.app.use(cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: ["Content-Type", "Authorization"]
+    }));
   }
 
   private routes() {
