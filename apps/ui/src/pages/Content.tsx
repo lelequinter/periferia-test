@@ -71,7 +71,7 @@ export const Content = () => {
       <Layout.Content style={{ padding: "0 48px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>Feed</Breadcrumb.Item>
+          <Breadcrumb.Item>{current}</Breadcrumb.Item>
         </Breadcrumb>
         <div
           style={{
@@ -85,7 +85,7 @@ export const Content = () => {
         </div>
       </Layout.Content>
       <Footer style={{ textAlign: "center" }}>
-        Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        Ant Design ©{new Date().getFullYear()} Created by Leyder Quintero
       </Footer>
     </Layout>
   );

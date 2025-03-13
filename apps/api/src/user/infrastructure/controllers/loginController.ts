@@ -16,7 +16,7 @@ export class LoginController {
 
       res.status(400).json({
         message: "Error al ingresar a la aplicación",
-        error: err.message,
+        errors: err.message,
       });
       
     }
