@@ -1,9 +1,12 @@
-import { createRootRoute, createRoute, createRouter, Outlet } from "@tanstack/react-router";
+import { createRootRoute, createRoute, createRouter, Outlet, redirect } from "@tanstack/react-router";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { Loading } from "./components/Loading";
 import { Login } from "./pages/Login";
 import App from "./App";
 import { Register } from "./pages/Register";
+import { Content } from "./pages/Content";
+import { Feed } from "./pages/Feed";
+import { Profile } from "./pages/Profile";
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
@@ -32,10 +35,45 @@ const registerRoute = createRoute({
   component: Register,
 });
 
+const contentRoute = createRoute({
+  getParentRoute: () => appRoute,
+  id: "app",
+  component: () => <Content />,
+  pendingComponent: Loading,
+  notFoundComponent: () => <NotFoundPage />
+});
+
+const feedRoute = createRoute({
+  getParentRoute: () => contentRoute,
+  path: "/feed",
+  component: () => <Feed />,
+});
+
+const profileRoute = createRoute({
+  getParentRoute: () => contentRoute,
+  path: "/profile",
+  component: () => <Profile />,
+});
+
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  beforeLoad: () => {
+    throw redirect({
+      to: "/feed",
+      replace: true,
+    });
+  },
+});
+
 const routeTree = rootRoute.addChildren([
   appRoute,
   loginRoute,
-  registerRoute
+  registerRoute,
+  contentRoute,
+  feedRoute,
+  profileRoute,
+  indexRoute
 ]);
 
 //* Router principal de la aplicacion se provee en al RouterProvider en main.tsx

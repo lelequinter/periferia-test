@@ -5,7 +5,6 @@ import { Outlet } from "@tanstack/react-router";
 const layoutConfigStyle: CSSProperties = {
   height: "100%",
   overflow: "auto",
-  scrollbarGutter: "stable"
 };
 
 function App() {
