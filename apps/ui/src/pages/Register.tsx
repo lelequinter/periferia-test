@@ -11,7 +11,7 @@ export const Register = () => {
     <div className="flex justify-center items-center w-full h-screen" >
       <Form
         name="login"
-        initialValues={{ remember: true }}
+        initialValues={{ name: '', email: '', password: '' }}
         className="w-full max-w-[400px]"
         onFinish={onFinish}
       >
