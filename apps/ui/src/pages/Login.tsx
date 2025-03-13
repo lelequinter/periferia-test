@@ -1,4 +1,5 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Link } from "@tanstack/react-router";
 import { Button, Form, Input } from "antd";
 
 export const Login = () => {
@@ -35,7 +36,7 @@ export const Login = () => {
           <Button block type="primary" htmlType="submit">
             Log in
           </Button>
-          or <a href="/register">Registrate ahora!</a>
+          or <Link to="/register">Registrate ahora!</Link>
         </Form.Item>
       </Form>
     </div>

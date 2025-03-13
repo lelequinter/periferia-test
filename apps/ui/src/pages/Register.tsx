@@ -1,4 +1,5 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { IdcardOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Link } from "@tanstack/react-router";
 import { Button, Form, Input } from "antd";
 
 export const Register = () => {
@@ -18,7 +19,7 @@ export const Register = () => {
           name="name"
           rules={[{ required: true, message: "Por favor ingresa tu nombre de usuario!" }]}
         >
-          <Input prefix={<UserOutlined />} placeholder="nombre de usuario" />
+          <Input prefix={<IdcardOutlined />} placeholder="nombre de usuario" />
         </Form.Item>
         <Form.Item
           name="email"
@@ -39,9 +40,9 @@ export const Register = () => {
 
         <Form.Item>
           <Button block type="primary" htmlType="submit">
-            Log in
+            Register 
           </Button>
-          or <a href="/login">Ya tengo cuenta!</a>
+          or <Link to="/login"> Ya tengo cuenta!</Link>
         </Form.Item>
       </Form>
     </div>
