@@ -1,0 +1,22 @@
+{
+  "name": "@periferia-test-monorepo/database",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "migrations:generate": "prisma migrate dev",
+    "migrations:deploy": "prisma migrate deploy",
+    "migrations:reset": "prisma migrate reset",
+    "seed": "ts-node prisma/seed.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "prisma": {
+   "schema": "prisma/schema.prisma"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1"
+  }
+}
