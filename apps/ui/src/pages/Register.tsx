@@ -1,5 +1,5 @@
 import { IdcardOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { Button, Form, Input, notification } from "antd";
 import Title from "antd/es/typography/Title";
 import { RegisterRepository, RegisterResponseI } from "../repositories/registerRepository";
@@ -8,7 +8,6 @@ import { NotificationErrorList } from "../components/NotificationErrorList";
 const registerRepo = new RegisterRepository();
 
 export const Register = () => {
-  const navigate = useNavigate();
 
   const [api, contextHolder] = notification.useNotification();
 
