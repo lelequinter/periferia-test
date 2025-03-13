@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # publications:
+  #   build:
+  #     context: ./apps/publications  # Now it correctly references its folder
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3031:3031"
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     - PORT=3031
+  #     - DATABASE_URL=postgres://postgres:my123password@postgres:5432/periferia_RR_SS
+
+  # users:
+  #   build:
+  #     context: ./apps/users  # Now it correctly references its folder
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3030:3030"
+  #   depends_on:
+  #     - postgres
+  #   environment:
+  #     - PORT=3030
+  #     - DATABASE_URL=postgres://postgres:my123password@postgres:5432/periferia_RR_SS
+
+  postgres:
+    image: postgres:15
+    container_name: my_postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: my123password
+      POSTGRES_DB: periferia_RR_SS
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
